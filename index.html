@@ -3,16 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ぱふす。- Links</title>
-<meta property="og:title" content="ぱふす。">
-<meta property="og:description" content="ゆるくふんわりぱふっとぱふすです！よく叫ぶ配信者モドキ・動画師 | TwitchとREALITYでゆるく活動中">
-<meta property="og:image" content="https://puffsleeve.github.io/links/day50x4size.png">
-<meta property="og:url" content="https://puffsleeve.github.io/links/">
+<title>index</title>
+<meta property="og:title" content="ぱふす。TOOLS">
+<meta property="og:description" content="ぱふす。が使う配信・動画制作まわりのツール置き場">
+<meta property="og:url" content="https://puffsleeve.github.io/tools/">
 <meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ぱふす。">
-<meta name="twitter:description" content="ゆるくふんわりぱふっとぱふすです！よく叫ぶ配信者モドキ・動画師 | TwitchとREALITYでゆるく活動中">
-<meta name="twitter:image" content="https://puffsleeve.github.io/links/day50x4size.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ぱふす。TOOLS">
+<meta name="twitter:description" content="ぱふす。が使う配信・動画制作まわりのツール置き場">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -41,75 +39,33 @@
     position: relative;
   }
 
-  /* Scanline overlay */
   .scanline {
-    position: fixed;
-    inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.15) 2px,
-      rgba(0,0,0,0.15) 4px
-    );
-    pointer-events: none;
-    z-index: 50;
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px);
+    pointer-events: none; z-index: 50;
   }
-
-  /* Noise texture */
   .noise {
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 49;
-    opacity: 0.5;
+    pointer-events: none; z-index: 49; opacity: 0.5;
   }
-
-  /* Background glow blobs */
-  .bg-blob {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(80px);
-    pointer-events: none;
-    z-index: 0;
-  }
-  .bg-blob-1 {
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(255,26,46,0.18) 0%, transparent 70%);
-    top: -100px; left: -100px;
-    animation: blobMove1 8s ease-in-out infinite alternate;
-  }
-  .bg-blob-2 {
-    width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(0,229,204,0.12) 0%, transparent 70%);
-    bottom: 100px; right: -50px;
-    animation: blobMove2 10s ease-in-out infinite alternate;
-  }
-  .bg-blob-3 {
-    width: 250px; height: 250px;
-    background: radial-gradient(circle, rgba(255,119,0,0.1) 0%, transparent 70%);
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    animation: blobMove3 12s ease-in-out infinite alternate;
-  }
+  .bg-blob { position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
+  .bg-blob-1 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,26,46,0.18) 0%, transparent 70%); top: -100px; left: -100px; animation: blobMove1 8s ease-in-out infinite alternate; }
+  .bg-blob-2 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(0,229,204,0.12) 0%, transparent 70%); bottom: 100px; right: -50px; animation: blobMove2 10s ease-in-out infinite alternate; }
+  .bg-blob-3 { width: 250px; height: 250px; background: radial-gradient(circle, rgba(255,119,0,0.1) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); animation: blobMove3 12s ease-in-out infinite alternate; }
   @keyframes blobMove1 { to { transform: translate(40px, 60px); } }
   @keyframes blobMove2 { to { transform: translate(-30px, -40px); } }
   @keyframes blobMove3 { to { transform: translate(-50px, 30px); } }
 
-  /* Grid lines background */
   .grid-bg {
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background-image:
       linear-gradient(rgba(255,26,46,0.04) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255,26,46,0.04) 1px, transparent 1px);
     background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
+    pointer-events: none; z-index: 0;
   }
 
-  /* Main container */
   .container {
     position: relative;
     z-index: 55;
@@ -121,8 +77,19 @@
     align-items: center;
   }
 
-  /* Profile section */
-  .profile {
+  .back-link {
+    align-self: flex-start;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    text-decoration: none;
+    margin-bottom: 24px;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--red); }
+
+  .header {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -130,91 +97,19 @@
     animation: fadeInDown 0.8s ease both;
   }
 
-  .avatar-wrap {
-    position: relative;
-    width: 130px;
-    height: 130px;
-    margin-bottom: 18px;
-  }
-
-  .avatar-wrap::before {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: 50%;
-    background: conic-gradient(rgba(255,26,46,0.55), rgba(0,229,204,0.35), rgba(255,119,0,0.45), rgba(255,26,46,0.55));
-    animation: spinBorder 7s linear infinite;
-    z-index: 0;
-  }
-
-  .avatar-wrap::after {
-    content: '';
-    position: absolute;
-    inset: -7px;
-    border-radius: 50%;
-    background: conic-gradient(rgba(255,26,46,0.08), transparent, rgba(0,229,204,0.08), transparent);
-    animation: spinBorder 12s linear infinite reverse;
-    filter: blur(8px);
-    z-index: 0;
-  }
-
-  @keyframes spinBorder {
-    to { transform: rotate(360deg); }
-  }
-
-  .avatar {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center top;
-    border: 3px solid var(--dark);
-    display: block;
-    position: relative;
-    z-index: 55;
-  }
-
-  .avatar-wrap {
-    position: relative;
-    z-index: 55;
-  }
-
-  /* Pixel decoration */
-  .pixel-deco {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background: var(--teal);
-    animation: pixelBlink 1.5s steps(1) infinite;
-  }
-  .pixel-deco:nth-child(2) { top: 5px; right: 5px; animation-delay: 0.3s; background: var(--red); }
-  .pixel-deco:nth-child(3) { bottom: 8px; left: 2px; animation-delay: 0.7s; background: var(--orange); width: 6px; height: 6px; }
-  @keyframes pixelBlink { 50% { opacity: 0; } }
-
   .name {
     font-family: 'Zen Kaku Gothic New', sans-serif;
     font-weight: 900;
     font-size: 2rem;
     letter-spacing: 0.05em;
     color: #fff;
-    text-shadow:
-      0 0 20px var(--red-glow),
-      0 0 40px rgba(255,26,46,0.2);
+    text-shadow: 0 0 20px var(--red-glow), 0 0 40px rgba(255,26,46,0.2);
     margin-bottom: 4px;
+    text-align: center;
   }
+  .name .dot { color: var(--red); }
 
-  .name .dot {
-    color: var(--red);
-  }
-
-  .tag-row {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 12px;
-  }
-
+  .tag-row { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-bottom: 16px; }
   .tag {
     font-size: 0.65rem;
     font-family: 'Orbitron', monospace;
@@ -223,32 +118,18 @@
     padding: 3px 10px;
     border: 1px solid;
     text-transform: uppercase;
-    animation: tagGlow 3s ease-in-out infinite alternate;
   }
-
-  .tag-red { color: var(--red); border-color: var(--red); background: rgba(255,26,46,0.08); }
-  .tag-teal { color: var(--teal); border-color: var(--teal); background: rgba(0,229,204,0.06); animation-delay: 1s; }
-  .tag-orange { color: var(--orange); border-color: var(--orange); background: rgba(255,119,0,0.06); animation-delay: 2s; }
-
-  @keyframes tagGlow {
-    to { box-shadow: 0 0 10px currentColor; }
-  }
+  .tag-teal { color: var(--teal); border-color: var(--teal); background: rgba(0,229,204,0.06); }
 
   .bio {
     font-size: 0.8rem;
     line-height: 1.7;
     color: var(--text-dim);
     text-align: center;
-    max-width: 320px;
+    max-width: 340px;
     letter-spacing: 0.03em;
   }
 
-  .bio strong {
-    color: var(--red);
-    font-weight: 700;
-  }
-
-  /* Divider */
   .divider {
     width: 100%;
     display: flex;
@@ -257,33 +138,16 @@
     margin-bottom: 28px;
     animation: fadeIn 1s ease 0.4s both;
   }
-
-  .divider-line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--red-dim), transparent);
-  }
-
+  .divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--red-dim), transparent); }
   .divider-icon {
-    font-size: 0.65rem;
-    font-family: 'Orbitron', monospace;
-    color: var(--red-dim);
-    letter-spacing: 0.2em;
-    white-space: nowrap;
+    font-size: 0.65rem; font-family: 'Orbitron', monospace; color: var(--red-dim);
+    letter-spacing: 0.2em; white-space: nowrap;
   }
 
-  /* Links */
-  .links {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
+  .links { width: 100%; display: flex; flex-direction: column; gap: 12px; }
 
   .link-item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+    display: flex; align-items: center; gap: 16px;
     padding: 14px 18px;
     background: var(--card-bg);
     border: 1px solid rgba(255,26,46,0.15);
@@ -295,54 +159,34 @@
     animation: slideInUp 0.6s ease both;
     clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
   }
-
   .link-item:nth-child(1) { animation-delay: 0.1s; }
   .link-item:nth-child(2) { animation-delay: 0.2s; }
   .link-item:nth-child(3) { animation-delay: 0.3s; }
-  .link-item:nth-child(4) { animation-delay: 0.4s; }
-  .link-item:nth-child(5) { animation-delay: 0.5s; }
-  .link-item:nth-child(6) { animation-delay: 0.6s; }
-  .link-item:nth-child(7) { animation-delay: 0.7s; }
 
-  /* Hover shimmer */
   .link-item::before {
-    content: '';
-    position: absolute;
-    inset: 0;
+    content: ''; position: absolute; inset: 0;
     background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.03) 50%, transparent 100%);
     transform: translateX(-100%);
     transition: transform 0.5s ease;
   }
-
-  /* Left accent bar */
   .link-item::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
     background: var(--link-color, var(--red));
     transform: scaleY(0);
     transition: transform 0.3s ease;
     transform-origin: center;
   }
-
   .link-item:hover {
     border-color: var(--link-color, var(--red));
     transform: translateX(4px);
     box-shadow: 0 0 20px rgba(255,26,46,0.1), inset 0 0 30px rgba(255,26,46,0.03);
   }
-
   .link-item:hover::before { transform: translateX(100%); }
   .link-item:hover::after { transform: scaleY(1); }
 
   .link-icon {
-    width: 38px;
-    height: 38px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 38px; height: 38px;
+    display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
     font-size: 1.1rem;
     background: rgba(255,26,46,0.08);
@@ -351,134 +195,40 @@
     clip-path: polygon(10% 0%, 90% 0%, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0% 90%, 0% 10%);
     transition: background 0.3s, box-shadow 0.3s;
   }
+  .link-item:hover .link-icon { background: rgba(255,26,46,0.15); box-shadow: 0 0 15px var(--red-glow); }
 
-  .link-item:hover .link-icon {
-    background: rgba(255,26,46,0.15);
-    box-shadow: 0 0 15px var(--red-glow);
-  }
-
-  .link-info {
-    flex: 1;
-    min-width: 0;
-  }
-
+  .link-info { flex: 1; min-width: 0; }
   .link-platform {
-    font-family: 'Orbitron', monospace;
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--link-color, var(--red));
-    margin-bottom: 2px;
-    opacity: 0.8;
+    font-family: 'Orbitron', monospace; font-size: 0.6rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--link-color, var(--red));
+    margin-bottom: 2px; opacity: 0.8;
   }
-
-  .link-label {
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    color: #fff;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  .link-label { font-size: 0.9rem; font-weight: 700; letter-spacing: 0.03em; color: #fff; }
+  .link-desc { font-size: 0.72rem; color: var(--text-dim); margin-top: 3px; line-height: 1.5; }
 
   .link-arrow {
-    font-size: 0.75rem;
-    color: var(--text-dim);
-    flex-shrink: 0;
-    transition: transform 0.3s, color 0.3s;
-    font-family: 'Orbitron', monospace;
+    font-size: 0.75rem; color: var(--text-dim); flex-shrink: 0;
+    transition: transform 0.3s, color 0.3s; font-family: 'Orbitron', monospace;
   }
+  .link-item:hover .link-arrow { transform: translateX(4px); color: var(--link-color, var(--red)); }
 
-  .link-item:hover .link-arrow {
-    transform: translateX(4px);
-    color: var(--link-color, var(--red));
-  }
+  .c-shorts { --link-color: var(--teal); }
 
-  /* Color variants */
-  .c-twitter { --link-color: #1d9bf0; }
-  .c-youtube { --link-color: #ff0033; }
-  .c-twitch { --link-color: #9147ff; }
-  .c-reality { --link-color: var(--teal); }
-  .c-instagram { --link-color: #e1306c; }
-  .c-suzuri { --link-color: var(--orange); }
-  .c-booth { --link-color: #fc4b6c; }
+  .footer { margin-top: 40px; text-align: center; animation: fadeIn 1.2s ease 1s both; }
+  .footer-tag { font-family: 'Orbitron', monospace; font-size: 0.55rem; letter-spacing: 0.2em; color: var(--red-dim); text-transform: uppercase; opacity: 0.6; }
+  .copylight { margin-top: 6px; font-family: 'Orbitron', monospace; font-size: 0.55rem; letter-spacing: 0.15em; color: var(--text-dim); opacity: 0.5; }
 
-  /* Footer */
-  .footer {
-    margin-top: 40px;
-    text-align: center;
-    animation: fadeIn 1.2s ease 1s both;
-  }
-
-  .footer-tag {
-    font-family: 'Orbitron', monospace;
-    font-size: 0.55rem;
-    letter-spacing: 0.2em;
-    color: var(--red-dim);
-    text-transform: uppercase;
-    opacity: 0.6;
-  }
-
-  .hashtag {
-    display: inline-block;
-    margin-top: 8px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: var(--teal);
-    letter-spacing: 0.05em;
-    text-shadow: 0 0 10px var(--teal-glow);
-  }
-
-  .copylight {
-    margin-top: 6px;
-    font-family: 'Orbitron', monospace;
-    font-size: 0.55rem;
-    letter-spacing: 0.15em;
-    color: var(--text-dim);
-    opacity: 0.5;
-  }
-
-  /* Pixel corner decorations */
-  .corner-deco {
-    position: fixed;
-    z-index: 200;
-    pointer-events: none;
-  }
+  .corner-deco { position: fixed; z-index: 200; pointer-events: none; }
   .corner-deco svg { display: block; }
   .corner-tl { top: 0; left: 0; }
   .corner-tr { top: 0; right: 0; transform: scaleX(-1); }
   .corner-bl { bottom: 0; left: 0; transform: scaleY(-1); }
   .corner-br { bottom: 0; right: 0; transform: scale(-1); }
 
-  /* Animations */
-  @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes slideInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* Glitch text effect on hover */
-  .name:hover {
-    animation: glitch 0.4s steps(2) both;
-  }
-  @keyframes glitch {
-    0% { text-shadow: 0 0 20px var(--red-glow); }
-    25% { text-shadow: -3px 0 var(--teal), 3px 0 var(--red); }
-    50% { text-shadow: 3px 0 var(--orange), -3px 0 var(--red); }
-    75% { text-shadow: -2px 0 var(--teal), 2px 0 var(--orange); }
-    100% { text-shadow: 0 0 20px var(--red-glow); }
-  }
-
-  /* Scrollbar */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--dark); }
   ::-webkit-scrollbar-thumb { background: var(--red-dim); }
@@ -498,140 +248,36 @@
 <div class="bg-blob bg-blob-2"></div>
 <div class="bg-blob bg-blob-3"></div>
 
-<!-- Corner decorations -->
-<div class="corner-deco corner-tl">
-  <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-    <path d="M0 0 H40 V4 H4 V40 H0 Z" fill="#ff1a2e" opacity="0.5"/>
-    <rect x="44" y="0" width="8" height="8" fill="#00e5cc" opacity="0.6"/>
-    <rect x="0" y="44" width="8" height="8" fill="#ff7700" opacity="0.6"/>
-  </svg>
-</div>
-<div class="corner-deco corner-tr">
-  <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-    <path d="M0 0 H40 V4 H4 V40 H0 Z" fill="#ff1a2e" opacity="0.5"/>
-    <rect x="44" y="0" width="8" height="8" fill="#00e5cc" opacity="0.6"/>
-    <rect x="0" y="44" width="8" height="8" fill="#ff7700" opacity="0.6"/>
-  </svg>
-</div>
-<div class="corner-deco corner-bl">
-  <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-    <path d="M0 0 H40 V4 H4 V40 H0 Z" fill="#ff1a2e" opacity="0.5"/>
-    <rect x="44" y="0" width="8" height="8" fill="#00e5cc" opacity="0.6"/>
-    <rect x="0" y="44" width="8" height="8" fill="#ff7700" opacity="0.6"/>
-  </svg>
-</div>
-<div class="corner-deco corner-br">
-  <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-    <path d="M0 0 H40 V4 H4 V40 H0 Z" fill="#ff1a2e" opacity="0.5"/>
-    <rect x="44" y="0" width="8" height="8" fill="#00e5cc" opacity="0.6"/>
-    <rect x="0" y="44" width="8" height="8" fill="#ff7700" opacity="0.6"/>
-  </svg>
-</div>
+<div class="corner-deco corner-tl"><svg width="60" height="60" viewBox="0 0 60 60" fill="none"><path d="M0 0 H40 V4 H4 V40 H0 Z" fill="#ff1a2e" opacity="0.5"/><rect x="44" y="0" width="8" height="8" fill="#00e5cc" opacity="0.6"/><rect x="0" y="44" width="8" height="8" fill="#ff7700" opacity="0.6"/></svg></div>
+<div class="corner-deco corner-tr"><svg width="60" height="60" viewBox="0 0 60 60" fill="none"><path d="M0 0 H40 V4 H4 V40 H0 Z" fill="#ff1a2e" opacity="0.5"/><rect x="44" y="0" width="8" height="8" fill="#00e5cc" opacity="0.6"/><rect x="0" y="44" width="8" height="8" fill="#ff7700" opacity="0.6"/></svg></div>
+<div class="corner-deco corner-bl"><svg width="60" height="60" viewBox="0 0 60 60" fill="none"><path d="M0 0 H40 V4 H4 V40 H0 Z" fill="#ff1a2e" opacity="0.5"/><rect x="44" y="0" width="8" height="8" fill="#00e5cc" opacity="0.6"/><rect x="0" y="44" width="8" height="8" fill="#ff7700" opacity="0.6"/></svg></div>
+<div class="corner-deco corner-br"><svg width="60" height="60" viewBox="0 0 60 60" fill="none"><path d="M0 0 H40 V4 H4 V40 H0 Z" fill="#ff1a2e" opacity="0.5"/><rect x="44" y="0" width="8" height="8" fill="#00e5cc" opacity="0.6"/><rect x="0" y="44" width="8" height="8" fill="#ff7700" opacity="0.6"/></svg></div>
 
 <div class="container">
-  <div class="profile">
-    <div class="avatar-wrap">
-      <div class="pixel-deco"></div>
-      <div class="pixel-deco"></div>
-      <div class="pixel-deco"></div>
-      <img class="avatar" src="day50x4size.png" alt="ぱふす。" onerror="this.style.display='none'">
-    </div>
 
-    <div class="name">ぱふす<span class="dot">。</span></div>
+  <a class="back-link" href="../links/">◀ ぱふす。TOPへ戻る</a>
 
-    <div class="tag-row">
-      <span class="tag tag-teal">配信者</span>
-      <span class="tag tag-orange">動画師</span>
-    </div>
-
-    <p class="bio">
-      ゆるくふんわりぱふっとぱふすです！<br>
-      よく叫ぶ配信者モドキ・動画師<br>
-      TwitchとREALITYでゆるく活動中<br>
-      #すーぱーうるとらぱーてぃー の主催者
-    </p>
+  <div class="header">
+    <div class="name">ぱふす<span class="dot">。</span>TOOLS</div>
+    <div class="tag-row"><span class="tag tag-teal">配信・動画制作ツール</span></div>
+    <p class="bio">配信・動画づくりで使ってる自作ツールをここに置いていきます。<br>ぜんぶブラウザだけで動くので、動画がどこかにアップロードされることはありません。</p>
   </div>
 
   <div class="divider">
     <div class="divider-line"></div>
-    <span class="divider-icon">◆ LINKS ◆</span>
+    <span class="divider-icon">◆ TOOLS ◆</span>
     <div class="divider-line"></div>
   </div>
 
   <div class="links">
-    <a class="link-item c-twitter" href="https://x.com/puffs______" target="_blank" rel="noopener">
+    <a class="link-item c-shorts" href="tools-shorts-vertical.html">
       <div class="link-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-5 18a1 1 0 1 1 0-2 1 1 0 0 1 0 2zM7 17V5h10v12H7z"/></svg>
       </div>
       <div class="link-info">
-        <div class="link-platform">X / Twitter</div>
-        <div class="link-label">@puffs______</div>
-      </div>
-      <span class="link-arrow">▶</span>
-    </a>
-
-    <a class="link-item c-youtube" href="https://www.youtube.com/@puffsleeve_tv" target="_blank" rel="noopener">
-      <div class="link-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-      </div>
-      <div class="link-info">
-        <div class="link-platform">YouTube</div>
-        <div class="link-label">ぱふすのおへや</div>
-      </div>
-      <span class="link-arrow">▶</span>
-    </a>
-
-    <a class="link-item c-twitch" href="https://www.twitch.tv/puffsleeve_tv" target="_blank" rel="noopener">
-      <div class="link-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
-      </div>
-      <div class="link-info">
-        <div class="link-platform">Twitch</div>
-        <div class="link-label">ぱふす選手(puffsleeve_tv)</div>
-      </div>
-      <span class="link-arrow">▶</span>
-    </a>
-
-    <a class="link-item c-reality" href="https://reality.app/profile/f9adeb31?adj_t=8ogcewh_z9yhix5" target="_blank" rel="noopener">
-      <div class="link-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v16h10V4H7zm5 13a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
-      </div>
-      <div class="link-info">
-        <div class="link-platform">REALITY</div>
-        <div class="link-label">ぱふす。</div>
-      </div>
-      <span class="link-arrow">▶</span>
-    </a>
-
-    <a class="link-item c-instagram" href="https://www.instagram.com/puffsleeve_tv/" target="_blank" rel="noopener">
-      <div class="link-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-      </div>
-      <div class="link-info">
-        <div class="link-platform">Instagram</div>
-        <div class="link-label">@puffsleeve_tv</div>
-      </div>
-      <span class="link-arrow">▶</span>
-    </a>
-
-    <a class="link-item c-suzuri" href="https://suzuri.jp/puffsleeve_tv" target="_blank" rel="noopener">
-      <div class="link-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l9 4.5v9L12 21l-9-4.5v-9zm0 2.25L5.25 8.5v7l6.75 3.25 6.75-3.25v-7z"/></svg>
-      </div>
-      <div class="link-info">
-        <div class="link-platform">SUZURI</div>
-        <div class="link-label">グッズショップ</div>
-      </div>
-      <span class="link-arrow">▶</span>
-    </a>
-
-    <a class="link-item c-booth" href="works.html">
-      <div class="link-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
-      </div>
-      <div class="link-info">
-        <div class="link-platform">WORKS</div>
-        <div class="link-label">#ぱふすのつくったの</div>
+        <div class="link-platform">Video Tool</div>
+        <div class="link-label">縦型レイアウト変換ツール</div>
+        <div class="link-desc">横型動画をYouTube Shorts用の9:16にレイアウト</div>
       </div>
       <span class="link-arrow">▶</span>
     </a>
