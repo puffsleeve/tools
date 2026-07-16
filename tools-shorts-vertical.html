@@ -259,6 +259,7 @@
           <label>動画の縁色</label>
           <input type="color" id="videoBorderColor" value="#ff1a2e">
         </div>
+        <div class="subnote">タイトルと動画はiPhoneのインカメラ（ノッチ/Dynamic Island）と被らない位置に自動調整済みです。</div>
       </div>
 
       <div class="panel">
@@ -283,8 +284,8 @@
           <input type="range" id="titleSize" min="40" max="120" value="72">
         </div>
         <div class="row">
-          <label>縦位置</label>
-          <input type="range" id="titleY" min="0" max="100" value="7">
+          <label>動画との間隔</label>
+          <input type="range" id="titleGap" min="0" max="150" value="30">
         </div>
         <div class="row" style="margin-top:8px;">
           <label>横位置</label>
@@ -395,7 +396,7 @@
   const titleInput = document.getElementById('titleInput');
   const titleColor = document.getElementById('titleColor');
   const titleSize = document.getElementById('titleSize');
-  const titleY = document.getElementById('titleY');
+  const titleGap = document.getElementById('titleGap');
   const videoBorderColor = document.getElementById('videoBorderColor');
   const blurInput = document.getElementById('blurAmount');
   const safeGuideToggle = document.getElementById('safeGuideToggle');
@@ -418,7 +419,7 @@
   const progressFill = document.getElementById('progressFill');
 
   const CANVAS_W = 1080, CANVAS_H = 1920;
-  const TITLE_ZONE_H = 260; // 「動画に合わせる」モードで動画が始まる位置の基準
+  const TITLE_ZONE_H = 320; // 動画が始まる位置（上の余白）。iPhoneのインカメラを避けるため固定値。
 
   // YouTube Shorts の右側UI（いいね・コメント・共有・チャンネル）を避けるための余白
   const SAFE_RIGHT = 220;
@@ -562,7 +563,7 @@
     });
   }
 
-  [titleInput, titleColor, titleSize, titleY, videoBorderColor, blurInput, safeGuideToggle,
+  [titleInput, titleColor, titleSize, titleGap, videoBorderColor, blurInput, safeGuideToggle,
    panAmount, strokeColor, strokeWidth].forEach(el=>{
     el.addEventListener('input', drawFrame);
   });
@@ -711,7 +712,7 @@
 
     const size = parseInt(titleSize.value,10);
     const font = FONT_MAP[fontKey];
-    const yPct = parseInt(titleY.value,10) / 100;
+    const gap = parseInt(titleGap.value,10);
 
     ctx.save();
     ctx.font = `${font.weight} ${size}px ${font.family}`;
@@ -726,13 +727,16 @@
     else { ctx.textAlign = 'center'; x = CANVAS_W/2; }
 
     const lines = text.split('\n').filter(l=>l.length);
-    const centerY = CANVAS_H * yPct;
-    const totalH = lines.length * size * 1.2;
-    const startY = centerY - totalH/2 + size*0.6;
+    const lineHeight = size * 1.2;
     const maxWidth = CANVAS_W - SAFE_LEFT*2;
 
+    // 動画フレームの上端を基準に、テキストの「下端」を固定。
+    // 行が増えるほどブロック全体が上へ伸びる（最終行の位置は変わらない）。
+    const frameTop = TITLE_ZONE_H;
+    const lastLineCenterY = frameTop - gap - size*0.35;
+
     lines.forEach((line, i)=>{
-      const ly = startY + i*size*1.2;
+      const ly = lastLineCenterY - (lines.length - 1 - i) * lineHeight;
       if(strokeToggle.checked){
         ctx.lineJoin = 'round';
         ctx.miterLimit = 2;
