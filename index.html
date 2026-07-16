@@ -89,6 +89,18 @@
   }
   .back-link:hover { color: var(--red); }
 
+  .about-link {
+    margin-top: 14px;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: var(--teal);
+    text-decoration: none;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+  }
+  .about-link:hover { opacity: 1; }
+
   .header {
     display: flex;
     flex-direction: column;
@@ -213,6 +225,7 @@
   .link-item:hover .link-arrow { transform: translateX(4px); color: var(--link-color, var(--red)); }
 
   .c-shorts { --link-color: var(--teal); }
+  .c-frame { --link-color: var(--orange); }
 
   .footer { margin-top: 40px; text-align: center; animation: fadeIn 1.2s ease 1s both; }
   .footer-tag { font-family: 'Orbitron', monospace; font-size: 0.55rem; letter-spacing: 0.2em; color: var(--red-dim); text-transform: uppercase; opacity: 0.6; }
@@ -259,8 +272,13 @@
 
   <div class="header">
     <div class="name">ぱふす<span class="dot">。</span>TOOLS</div>
-    <div class="tag-row"><span class="tag tag-teal">配信・動画制作ツール</span></div>
-    <p class="bio">配信・動画づくりで使ってる自作ツールをここに置いていきます。<br>ぜんぶブラウザだけで動くので、動画がどこかにアップロードされることはありません。<br>ツールの制作はAIと共同で行っています。</p>
+    <div class="tag-row">
+      <span class="tag tag-teal">配信</span>
+      <span class="tag tag-teal">動画制作</span>
+      <span class="tag tag-teal">画像制作</span>
+    </div>
+    <p class="bio">配信者モドキが使っている自作ツールをここに置いていきます。<br>ぜんぶブラウザだけで動くので、動画がどこかにアップロードされることはありません。<br>ツールの制作はAIと共同で行っています。</p>
+    <a class="about-link" href="https://t.co/XtsGAdjsna" target="_blank" rel="noopener">ぱふすについてはこちらから ▶</a>
   </div>
 
   <div class="divider">
@@ -278,6 +296,17 @@
         <div class="link-platform">Video Tool</div>
         <div class="link-label">縦型レイアウト変換ツール</div>
         <div class="link-desc">横型動画をYouTube Shorts用の9:16に、自由なレイアウトで変換</div>
+      </div>
+      <span class="link-arrow">▶</span>
+    </a>
+    <a class="link-item c-frame" href="tools-frame-generator.html">
+      <div class="link-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v16H4V4zm2 2v12h12V6H6zm3 3h6v6H9V9z"/></svg>
+      </div>
+      <div class="link-info">
+        <div class="link-platform">Image Tool</div>
+        <div class="link-label">フレームジェネレーター</div>
+        <div class="link-desc">フレーム・イラスト・背景の画像を重ねて1枚のPNGに合成</div>
       </div>
       <span class="link-arrow">▶</span>
     </a>
