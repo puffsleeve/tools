@@ -283,9 +283,11 @@
       <div class="panel">
         <span class="label">02 / マスクの中身</span>
         <div class="toggle-row">
-          <label class="toggle-opt active" data-masktype="shape"><input type="radio" name="masktype" value="shape" checked>図形</label>
-          <label class="toggle-opt" data-masktype="illustration"><input type="radio" name="masktype" value="illustration">イラスト</label>
+          <label class="toggle-opt active" data-contenttype="fill"><input type="radio" name="contenttype" value="fill" checked>塗りつぶし</label>
+          <label class="toggle-opt" data-contenttype="crop"><input type="radio" name="contenttype" value="crop">イラストを切り抜く</label>
+          <label class="toggle-opt" data-contenttype="place"><input type="radio" name="contenttype" value="place">イラストを配置する</label>
         </div>
+        <div class="subnote" id="contentTypeNote">塗りつぶし：マスク範囲にぴったり合わせて単色で塗りつぶします。</div>
 
         <div id="illustBlock" style="display:none; margin-top:14px;">
           <div class="dropzone" id="dropzoneIllust">
@@ -295,12 +297,14 @@
           <input type="file" id="illustInput" accept="image/*">
           <div class="filename" id="illustFilename"></div>
 
-          <span class="sublabel">イラストの見せ方</span>
-          <div class="toggle-row">
-            <label class="toggle-opt active" data-illustsub="solidbg"><input type="radio" name="illustsub" value="solidbg" checked>イラスト＋単色背景</label>
-            <label class="toggle-opt" data-illustsub="shapeonly"><input type="radio" name="illustsub" value="shapeonly">イラストの形のみ</label>
+          <div id="cropBgBlock" style="display:none;">
+            <span class="sublabel">塗りつぶし背景</span>
+            <div class="toggle-row">
+              <label class="toggle-opt active" data-cropbg="on"><input type="radio" name="cropbg" value="on" checked>あり</label>
+              <label class="toggle-opt" data-cropbg="off"><input type="radio" name="cropbg" value="off">なし</label>
+            </div>
+            <div class="subnote">「あり」はイラストの透明部分を単色で塗りつぶします。「なし」はイラストの透明部分をそのまま透過にします（形の外には出ません）。</div>
           </div>
-          <div class="subnote">「イラストの形のみ」は画像の透明部分をそのまま透過にし、不透明な部分だけを隠す形にします。</div>
         </div>
 
         <div id="shapeBlock" style="margin-top:14px;">
@@ -405,8 +409,8 @@
   let dpr = window.devicePixelRatio || 1;
 
   const state = {
-    maskType: 'shape',       // 'shape' | 'illustration'
-    illustSubMode: 'solidbg', // 'solidbg' | 'shapeonly'
+    contentType: 'fill',     // 'fill' | 'crop' | 'place'
+    cropBg: 'on',             // 'on' | 'off' (crop時のみ有効)
     illustImage: null,
     shape: 'circle',
     sizePx: 600,
@@ -437,9 +441,17 @@
   const illustBlock = document.getElementById('illustBlock');
   const shapeBlock = document.getElementById('shapeBlock');
   const colorRow = document.getElementById('colorRow');
+  const contentTypeNote = document.getElementById('contentTypeNote');
+  const cropBgBlock = document.getElementById('cropBgBlock');
   const dropzoneIllust = document.getElementById('dropzoneIllust');
   const illustInput = document.getElementById('illustInput');
   const illustFilenameEl = document.getElementById('illustFilename');
+
+  const CONTENT_NOTES = {
+    fill: '塗りつぶし：マスク範囲にぴったり合わせて単色で塗りつぶします。',
+    crop: 'イラストを切り抜く：イラストを拡大縮小してマスク範囲（形）を隙間なく埋めます。はみ出す部分は切り取られ、範囲の外にはイラストが出ません。透明部分の扱いは下の「塗りつぶし背景」で選べます。',
+    place: 'イラストを配置する：イラストをそのままの縦横比でマスク範囲内に収めて置くだけです。イラスト自体の透明部分はそのまま透過になります。'
+  };
 
   function hexToRgb(hex){
     const m = hex.replace('#','');
@@ -491,33 +503,50 @@
     context.drawImage(img, dx, dy, dw, dh);
   }
 
+  // cover-fit: イラストを拡大縮小してマスク範囲を隙間なく埋める（はみ出す部分はクリップされる）
+  function drawCoverImage(context, img, r){
+    const iw = img.naturalWidth || img.width, ih = img.naturalHeight || img.height;
+    if(!iw || !ih) return;
+    const scale = Math.max(r.w/iw, r.h/ih);
+    const dw = iw*scale, dh = ih*scale;
+    const dx = r.x + (r.w-dw)/2;
+    const dy = r.y + (r.h-dh)/2;
+    context.drawImage(img, dx, dy, dw, dh);
+  }
+
   // draws only the actual exportable mask content (no editing UI)
   function drawMaskContent(context, r){
     const alpha = state.opacity/100;
     context.save();
     context.globalAlpha = alpha;
 
-    if(state.maskType === 'illustration' && state.illustImage){
-      if(state.illustSubMode === 'solidbg'){
-        context.fillStyle = state.color;
-        shapePath(context, r);
-        context.fill();
-      }
-      drawContainImage(context, state.illustImage, r);
-    } else if(state.maskType === 'shape'){
+    if(state.contentType === 'fill'){
       context.fillStyle = state.color;
       shapePath(context, r);
       context.fill();
+    } else if(state.contentType === 'crop' && state.illustImage){
+      context.save();
+      shapePath(context, r);
+      context.clip();
+      if(state.cropBg === 'on'){
+        context.fillStyle = state.color;
+        context.fillRect(r.x, r.y, r.w, r.h);
+      }
+      drawCoverImage(context, state.illustImage, r);
+      context.restore();
+    } else if(state.contentType === 'place' && state.illustImage){
+      drawContainImage(context, state.illustImage, r);
     }
     context.restore();
   }
 
   function updateVisibility(){
-    illustBlock.style.display = state.maskType === 'illustration' ? 'block' : 'none';
-    const showShapeBlock = state.maskType === 'shape' || (state.maskType === 'illustration' && state.illustSubMode === 'solidbg');
-    shapeBlock.style.display = showShapeBlock ? 'block' : 'none';
-    const showColorRow = state.maskType === 'shape' || (state.maskType === 'illustration' && state.illustSubMode === 'solidbg');
-    colorRow.style.display = showColorRow ? 'flex' : 'none';
+    const ct = state.contentType;
+    shapeBlock.style.display = (ct === 'fill' || ct === 'crop') ? 'block' : 'none';
+    illustBlock.style.display = (ct === 'crop' || ct === 'place') ? 'block' : 'none';
+    cropBgBlock.style.display = (ct === 'crop') ? 'block' : 'none';
+    colorRow.style.display = (ct === 'fill' || (ct === 'crop' && state.cropBg === 'on')) ? 'flex' : 'none';
+    contentTypeNote.textContent = CONTENT_NOTES[ct] || '';
   }
 
   // ---- resolution sync (canvas intrinsic size = export size) ----
@@ -555,25 +584,25 @@
     });
   });
 
-  // ---- mask type toggle (図形 / イラスト) ----
-  document.querySelectorAll('.toggle-opt[data-masktype]').forEach(opt=>{
+  // ---- mask content type toggle (塗りつぶし / イラストを切り抜く / イラストを配置する) ----
+  document.querySelectorAll('.toggle-opt[data-contenttype]').forEach(opt=>{
     opt.addEventListener('click', ()=>{
-      document.querySelectorAll('.toggle-opt[data-masktype]').forEach(o=>o.classList.remove('active'));
+      document.querySelectorAll('.toggle-opt[data-contenttype]').forEach(o=>o.classList.remove('active'));
       opt.classList.add('active');
       opt.querySelector('input').checked = true;
-      state.maskType = opt.dataset.masktype;
+      state.contentType = opt.dataset.contenttype;
       updateVisibility();
       draw();
     });
   });
 
-  // ---- illustration sub mode (イラスト+単色背景 / イラストの形のみ) ----
-  document.querySelectorAll('.toggle-opt[data-illustsub]').forEach(opt=>{
+  // ---- crop background toggle (あり / なし, 「イラストを切り抜く」時のみ有効) ----
+  document.querySelectorAll('.toggle-opt[data-cropbg]').forEach(opt=>{
     opt.addEventListener('click', ()=>{
-      document.querySelectorAll('.toggle-opt[data-illustsub]').forEach(o=>o.classList.remove('active'));
+      document.querySelectorAll('.toggle-opt[data-cropbg]').forEach(o=>o.classList.remove('active'));
       opt.classList.add('active');
       opt.querySelector('input').checked = true;
-      state.illustSubMode = opt.dataset.illustsub;
+      state.cropBg = opt.dataset.cropbg;
       updateVisibility();
       draw();
     });
